@@ -11,7 +11,10 @@ export class TaskService {
   ) {}
 
   getTask(id: string) {
-    return this.tasksRepo.findOne({ where: { id: Number(id) }, relations: ['user'] });
+    return this.tasksRepo.findOne({
+      where: { id: Number(id) },
+      relations: ['user'],
+    });
   }
 
   createTask(taskData: any) {

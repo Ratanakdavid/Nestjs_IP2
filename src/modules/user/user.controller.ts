@@ -31,7 +31,7 @@ export class UsersController {
     return this.userService.updateUser(body);
   }
 
-  @Delete('/users/:username')
+  @Delete('/:username')
   deleteUser(@Param('username') username: string) {
     return this.userService.deleteUser(username);
   }

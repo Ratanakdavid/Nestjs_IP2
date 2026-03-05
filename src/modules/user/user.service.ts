@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { createUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UserService {
@@ -11,15 +12,22 @@ export class UserService {
   ) {}
 
   getUser(username: string) {
-    return this.usersRepo.findOne({ where: { username }, relations: ['tasks'] });
+    return this.usersRepo.findOne({
+      where: { username },
+      relations: ['tasks'],
+    });
   }
 
-  createUser(userData: any) {
+  createUser(userData: createUserDto) {
     const user = this.usersRepo.create(userData);
     return this.usersRepo.save(user);
   }
 
-  updateUser(updateData: any) {
+  updateUser(updateData: {
+    username: string;
+    email: string;
+    password: string;
+  }) {
     return this.usersRepo.update({ username: updateData.username }, updateData);
   }
 
